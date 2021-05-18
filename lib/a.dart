@@ -6,6 +6,7 @@ class A extends StatelessWidget {
 
     print("beta 1");
     print("beta 2");
+    print("alpha 1");
 
     // TODO: implement build
     return Scaffold(
