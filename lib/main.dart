@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'MyStream.dart';
+import 'package:flutter_check/ViewModel/UserViewModel.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,29 +49,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MyStream myStream = new MyStream();
+  UserViewModel viewModel = UserViewModel.empty();
   String text = "";
 
   void _action() {
-    myStream.increment();
+    viewModel.fetchData();
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    myStream.counterStream.listen((event) {
-      setState(() {
-        text = event.toString();
-      });
-    });
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    myStream.dispose();
     super.dispose();
   }
 
@@ -83,7 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Text(text),
+        child: StreamBuilder(
+          stream: this.viewModel.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              UserViewModel data = snapshot.data;
+              return Text(data.nameUser);
+            }
+            return Text("N/A");
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _action,
