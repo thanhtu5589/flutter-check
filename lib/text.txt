@@ -1,4 +1,0 @@
-beta test lan 1
-beta test lan 2
-alpha test lan 1
-alpha test lan 2
