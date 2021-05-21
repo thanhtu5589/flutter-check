@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_check/Components/TestView.dart';
 import 'package:flutter_check/ViewModel/UserViewModel.dart';
 
 void main() {
@@ -52,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   UserViewModel viewModel = UserViewModel.empty();
   String text = "";
 
-  void _action() {
+  void _action(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TestView()));
     viewModel.fetchData();
   }
 
@@ -87,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _action,
+        onPressed: () => _action(context),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
